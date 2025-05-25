@@ -1,3 +1,7 @@
+*{
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f4f8;
@@ -11,20 +15,43 @@ body {
 
 
 .contenedor {
-  max-width: 1000px;
-  margin: 50px auto;
-  background-color: #ffffff;
-  padding: 40px;
+  max-width: 400px;
+  padding: 40px 50px;
+  margin: 60px auto;
+   background-color: #e7f8ff;
   border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  text-align: left;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);  
+}
+
+input {
+  width: 100%;
+  padding: 10px 10px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+h2 {
   text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #444;
+  font-weight: 500;
 }
 
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  color: #333;
+input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
 
@@ -36,16 +63,17 @@ p {
 
 
 .boton {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 14px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  cursor: pointer;
-  display: inline-block;
+   width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+button.boton {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
 }
 
 .boton:hover {
@@ -154,7 +182,7 @@ canvas {
 }
 
 .contenedorlogin .enlace a {
-  color: #007bff;
+  color: #4400ff;
   text-decoration: none;
 }
 
