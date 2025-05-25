@@ -3,6 +3,10 @@ body {
   background-color: #f0f4f8;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content:center ;
+  align-items:center ;
+  min-height: 100vh;
 }
 
 
@@ -12,7 +16,7 @@ body {
   background-color: #ffffff;
   padding: 40px;
   border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
 
@@ -100,3 +104,60 @@ canvas {
   }
 }
 
+.contenedorlogin {
+  max-width: 400px;
+  padding: 30px 40px;
+  text-align: left;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+
+.contenedorlogin h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #181717;
+}
+
+.contenedorlogin label {
+  display: block;
+  margin-bottom: 5px;
+  color: #444;
+  font-weight: 500;
+}
+
+.contenedorlogin input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.contenedorlogin input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.contenedorlogin .boton {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.contenedorlogin .enlace {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.contenedorlogin .enlace a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contenedorlogin .enlace a:hover {
+  text-decoration: underline;
+}
