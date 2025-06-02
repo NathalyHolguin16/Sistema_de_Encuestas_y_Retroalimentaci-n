@@ -218,6 +218,7 @@ canvas {
   box-shadow: none; 
   display: block;
   margin: 0;
+  background-color: blue;
 }
 
 .columna-derecha {
