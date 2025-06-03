@@ -3,22 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <title>Crear Encuesta</title>
-   <link rel="stylesheet" href="../css/style.css">  
+ <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+   <div class="contenedor">
   <h2>Crear Nueva Encuesta</h2>
-  <form>
+  <form class="formulario">
     <label>Título de la encuesta:</label>
     <input type="text" required>
+
     <label>Pregunta 1:</label>
     <input type="text" required>
+
     <label>Tipo de respuesta:</label>
     <select>
       <option>Opción múltiple</option>
       <option>Respuesta corta</option>
       <option>Escala de satisfacción</option>
     </select>
-    <button type="submit">Guardar Encuesta</button>
+    
+    <button type="submit" class="boton" >Guardar Encuesta</button>
   </form>
+</div>
 </body>
 </html>
