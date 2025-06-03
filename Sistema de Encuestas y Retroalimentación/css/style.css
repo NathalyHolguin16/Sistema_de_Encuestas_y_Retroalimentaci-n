@@ -52,7 +52,7 @@ label {
 input:focus {
   outline: none;
   border-color: #4eaceb;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  box-shadow: 0 0 5px rgba(252, 252, 252, 0.986);
 }
 
 
