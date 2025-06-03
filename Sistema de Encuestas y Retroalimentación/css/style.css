@@ -71,8 +71,11 @@ p {
   padding: 12px;
   border-radius: 10px;
   font-size: 16px;
-  border-color: #c8d6f8ad;
-  background-color: #0015ffad;
+  background-color: #007bff;
+  color: white;             
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
   
 }
 
@@ -81,7 +84,11 @@ button.boton {
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
-
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .boton:hover {
