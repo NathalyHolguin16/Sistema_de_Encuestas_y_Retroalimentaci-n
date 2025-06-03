@@ -30,7 +30,6 @@ function validarFormulario(formId) {
 
 // Función auxiliar para validar formato de email
 function validarEmail(email) {
-  // Expresión regular simple para emails
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);
 }
@@ -194,3 +193,4 @@ document.addEventListener('DOMContentLoaded', function() {
         XLSX.writeFile(workbook, 'resultados_encuesta.xlsx');
     });
 });
+
