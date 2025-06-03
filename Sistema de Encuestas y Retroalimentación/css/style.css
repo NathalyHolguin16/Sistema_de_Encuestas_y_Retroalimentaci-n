@@ -15,9 +15,9 @@ body {
 
 
 .contenedor {
-  max-width: 600px;
-  width: 100%;
+ max-width: 600px;
   padding: 40px 50px;
+  margin: 60px auto;
    background-color: #e7f8ff;
   border-radius: 20px;
   text-align: center;
