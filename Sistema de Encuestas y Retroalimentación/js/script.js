@@ -186,19 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Exportar a PDF
-    document.getElementById('btnExportPDF').addEventListener('click', function() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        
-        doc.text("Resultados de Encuesta - Satisfacción del Cliente", 10, 10);
-        doc.autoTable({
-            html: '#tablaResultados',
-            startY: 20
-        });
-        
-        doc.save('resultados_encuesta.pdf');
-    });
 
     // Exportar a Excel
     document.getElementById('btnExportExcel').addEventListener('click', function() {
