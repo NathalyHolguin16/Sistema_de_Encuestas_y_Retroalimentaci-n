@@ -49,10 +49,11 @@ label {
 }
 
 
+
 input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  border-color: #4eaceb;
+  box-shadow: 0 0 5px rgba(252, 252, 252, 0.986);
 }
 
 
@@ -68,8 +69,8 @@ p {
   padding: 12px;
   border-radius: 10px;
   font-size: 16px;
-  border-color: #007bff;
-  background-color: #007bff;
+  border-color: #0400ffad;
+  background-color: #0400ffad;
   
 }
 
