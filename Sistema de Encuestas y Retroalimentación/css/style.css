@@ -72,7 +72,7 @@ p {
   border-radius: 10px;
   font-size: 16px;
   background-color: hsl(211, 72%, 86%);
-  color: rgba(221, 220, 220, 0.87);             
+  color: rgb(255, 255, 255);             
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -84,7 +84,7 @@ button.boton {
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
-  background-color: #6f9ecf7c;
+  background-color: #73a1d17c;
   color: rgb(255, 248, 248);
   border: none;
   cursor: pointer;
