@@ -226,7 +226,7 @@ body {
 }
 
 .columna-izquierda{
-  max-width: 70%;
+  max-width: 65%;
    min-width: 300px;
   flex: 1;
   display: flex;
@@ -235,7 +235,7 @@ body {
 }
 
 .columna-derecha{
-  max-width: 30%;
+  max-width: 35%;
   min-width: 300px;
   flex: 1;
   display: flex;
