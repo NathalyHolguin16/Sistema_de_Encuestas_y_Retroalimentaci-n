@@ -68,6 +68,7 @@ p {
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
+  border-color: #007bff;
 }
 
 button.boton {
@@ -75,6 +76,7 @@ button.boton {
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
+  background-color: #007bff;
 }
 
 .boton:hover {
