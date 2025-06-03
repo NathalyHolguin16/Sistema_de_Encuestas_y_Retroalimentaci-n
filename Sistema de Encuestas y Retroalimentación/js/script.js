@@ -193,3 +193,4 @@ document.addEventListener('DOMContentLoaded', function() {
         XLSX.writeFile(workbook, 'resultados_encuesta.xlsx');
     });
 });
+
