@@ -84,7 +84,7 @@ button.boton {
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #c3e0ff;
   color: white;
   border: none;
   cursor: pointer;
@@ -92,7 +92,7 @@ button.boton {
 }
 
 .boton:hover {
-  background-color: #d1dad3;
+  background-color: #008cff;
 }
 
 .tarjetas-opciones {
