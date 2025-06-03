@@ -72,7 +72,7 @@ p {
   border-radius: 10px;
   font-size: 16px;
   background-color: hsl(211, 72%, 86%);
-  color: white;             
+  color: rgb(226, 6, 6);             
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
