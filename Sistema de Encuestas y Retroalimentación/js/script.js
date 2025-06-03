@@ -110,7 +110,8 @@ const data = {
     }
 };
 
-let contadorPreguntas = 2; // Ya existe la pregunta 1
+// bloque de preguntas
+let contadorPreguntas = 2; 
 
 document.getElementById("agregar-pregunta").addEventListener("click", () => {
   const contenedor = document.getElementById("contenedor-preguntas");
