@@ -8,20 +8,31 @@
 <body>
    <div class="contenedor">
   <h2>Crear Nueva Encuesta</h2>
-  <form class="formulario">
+  <br>
+  <form class="formulario" id="formulario-encuesta">
     <label>Título de la encuesta:</label>
     <input type="text" required>
 
-    <label>Pregunta 1:</label>
-    <input type="text" required>
+    <div id="contenedor-preguntas">
+      <div class="preguntas">
+        <label>Pregunta 1:</label>
+        <input type="text" required>
 
-    <label>Tipo de respuesta:</label>
-    <select>
-      <option>Opción múltiple</option>
-      <option>Respuesta corta</option>
-      <option>Escala de satisfacción</option>
-    </select>
+        <label>Ingrese respuesta</label>
+        <input type="text" required>
+
+        <label>Tipo de respuesta:</label>
+        <select>
+          <option>Opción múltiple</option>
+          <option>Respuesta corta</option>
+          <option>Escala de satisfacción</option>
+        </select>
+  </div>
+</div>
     
+     <button type="button" class="boton" id="agregar-pregunta">Agregar Pregunta</button>
+     <br>
+     <br>
     <button type="submit" class="boton" >Guardar Encuesta</button>
   </form>
 </div>

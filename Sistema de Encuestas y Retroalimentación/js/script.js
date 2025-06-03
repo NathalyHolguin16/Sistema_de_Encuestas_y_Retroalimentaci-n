@@ -12,7 +12,30 @@ function validarFormulario(formId) {
     }
   });
 
-  //validacion y que la contrseña tenga minimo 6 digitos
+  
+  // Validar email si existe
+  const emailInput = form.querySelector('input[type="email"]');
+  if (emailInput) {
+    const email = emailInput.value.trim();
+    if (email && !validarEmail(email)) {
+      valido = false;
+      mensajesError.push('El email no tiene un formato válido.');
+    }
+  }
+
+  if (!valido) {
+    alert(mensajesError.join('\n'));
+  }
+  return valido;
+}
+
+// Función auxiliar para validar formato de email
+function validarEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+//validacion y que la contrseña tenga minimo 6 digitos
   function validarRegistro() {
   const password = document.getElementById('password').value;
   const confirmar = document.getElementById('confirmar').value;
@@ -38,28 +61,8 @@ function validarFormulario(formId) {
 
   return true;
 }
-  
-  // Validar email si existe
-  const emailInput = form.querySelector('input[type="email"]');
-  if (emailInput) {
-    const email = emailInput.value.trim();
-    if (email && !validarEmail(email)) {
-      valido = false;
-      mensajesError.push('El email no tiene un formato válido.');
-    }
-  }
 
-  if (!valido) {
-    alert(mensajesError.join('\n'));
-  }
-  return valido;
-}
 
-// Función auxiliar para validar formato de email
-function validarEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-}
 
 // Ejemplo: Validar formulario login al enviar
 if(document.getElementById('form-login')){
@@ -70,14 +73,6 @@ if(document.getElementById('form-login')){
   });
 }
 
-// Ejemplo: Validar formulario registro al enviar
-if(document.getElementById('form-registro')){
-  document.getElementById('form-registro').addEventListener('submit', function(event){
-    if(!validarFormulario('form-registro')){
-      event.preventDefault();
-    }
-  });
-}
 
 // Código para gráfica con Chart.js (usado en resultados.html)
 function crearGrafica(idCanvas, etiquetas, datos) {
@@ -106,6 +101,35 @@ function crearGrafica(idCanvas, etiquetas, datos) {
   });
 }
 
+// bloque de preguntas
+let contadorPreguntas = 2; 
+
+document.getElementById("agregar-pregunta").addEventListener("click", () => {
+  const contenedor = document.getElementById("contenedor-preguntas");
+
+  const bloque = document.createElement("div");
+  bloque.classList.add("bloque-pregunta");
+  bloque.style.marginTop = "20px";
+
+  bloque.innerHTML = `
+    <label>Pregunta ${contadorPreguntas}:</label>
+    <input type="text" required>
+
+    <label>Ingrese respuesta</label>
+    <input type="text" required>
+
+    <label>Tipo de respuesta:</label>
+    <select>
+      <option>Opción múltiple</option>
+      <option>Respuesta corta</option>
+      <option>Escala de satisfacción</option>
+    </select>
+  `;
+
+  contenedor.appendChild(bloque);
+  contadorPreguntas++;
+});
+
 // Datos de ejemplo (simulados)
 const data = {
     preguntas: ["¿Cómo calificaría nuestro servicio?", "¿Recomendaría nuestro producto?"],
@@ -116,6 +140,7 @@ const data = {
         recomendacionCount: [80, 20]
     }
 };
+
 
 // Inicialización al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
