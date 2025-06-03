@@ -99,17 +99,6 @@ function crearGrafica(idCanvas, etiquetas, datos) {
   });
 }
 
-// Datos de ejemplo (simulados)
-const data = {
-    preguntas: ["¿Cómo calificaría nuestro servicio?", "¿Recomendaría nuestro producto?"],
-    respuestas: {
-        servicio: ["Excelente", "Bueno", "Regular", "Malo"],
-        servicioCount: [45, 30, 15, 10], // Porcentajes
-        recomendacion: ["Sí", "No"],
-        recomendacionCount: [80, 20]
-    }
-};
-
 // bloque de preguntas
 let contadorPreguntas = 2; 
 
@@ -138,6 +127,18 @@ document.getElementById("agregar-pregunta").addEventListener("click", () => {
   contenedor.appendChild(bloque);
   contadorPreguntas++;
 });
+
+// Datos de ejemplo (simulados)
+const data = {
+    preguntas: ["¿Cómo calificaría nuestro servicio?", "¿Recomendaría nuestro producto?"],
+    respuestas: {
+        servicio: ["Excelente", "Bueno", "Regular", "Malo"],
+        servicioCount: [45, 30, 15, 10], // Porcentajes
+        recomendacion: ["Sí", "No"],
+        recomendacionCount: [80, 20]
+    }
+};
+
 
 // Inicialización al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
