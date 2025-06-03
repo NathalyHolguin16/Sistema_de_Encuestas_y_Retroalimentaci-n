@@ -101,34 +101,6 @@ function crearGrafica(idCanvas, etiquetas, datos) {
   });
 }
 
-// bloque de preguntas
-let contadorPreguntas = 2; 
-
-document.getElementById("agregar-pregunta").addEventListener("click", () => {
-  const contenedor = document.getElementById("contenedor-preguntas");
-
-  const bloque = document.createElement("div");
-  bloque.classList.add("bloque-pregunta");
-  bloque.style.marginTop = "20px";
-
-  bloque.innerHTML = `
-    <label>Pregunta ${contadorPreguntas}:</label>
-    <input type="text" required>
-
-    <label>Ingrese respuesta</label>
-    <input type="text" required>
-
-    <label>Tipo de respuesta:</label>
-    <select>
-      <option>Opción múltiple</option>
-      <option>Respuesta corta</option>
-      <option>Escala de satisfacción</option>
-    </select>
-  `;
-
-  contenedor.appendChild(bloque);
-  contadorPreguntas++;
-});
 
 // Datos de ejemplo (simulados)
 const data = {
