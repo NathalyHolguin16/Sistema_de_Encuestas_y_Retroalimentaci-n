@@ -82,15 +82,11 @@ button.boton {
 }
 
 .tarjetas-opciones {
-  flex-direction: column;
+   display: flex;
+  flex-wrap:wrap;
   justify-content: center;
-  align-items: center;
-  width: 100%;
   gap: 20px;
-  display: flex;
-  
- 
-  
+  margin-top: 30px;   
 }
 
 .tarjetas-opciones2 {
@@ -154,4 +150,11 @@ select {
   border-color: #cccccc;
   background-color: #f5f0f0;
   border-radius: 8px;
+}
+
+.imagen-inicio {
+  max-width: 950px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
