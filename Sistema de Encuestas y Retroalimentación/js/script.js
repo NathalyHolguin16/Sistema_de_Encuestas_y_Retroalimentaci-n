@@ -134,11 +134,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 ticks: {
                     font: {
-                        size: 14 // Tamaño de fuente para las etiquetas del eje X
+                        size: 20 // Tamaño de fuente para las etiquetas del eje X
                     }
                 },
-                barPercentage: 0.7, // Controla el ancho de las barras (0.1 a 1)
-                categoryPercentage: 0.9 // Espacio entre categorías
+                barPercentage: 0.9, // Controla el ancho de las barras (0.1 a 1)
+                categoryPercentage: 1 // Espacio entre categorías
             },
             y: {
                 beginAtZero: true,
