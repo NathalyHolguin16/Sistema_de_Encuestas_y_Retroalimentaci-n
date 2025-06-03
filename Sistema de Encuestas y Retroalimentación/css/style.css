@@ -82,11 +82,12 @@ button.boton {
 }
 
 .tarjetas-opciones {
-   display: flex;
-  flex-wrap:wrap;
+ flex-direction: column;
   justify-content: center;
+  align-items: center;
+  width: 100%;
   gap: 20px;
-  margin-top: 30px;   
+  display: flex;
 }
 
 .tarjetas-opciones2 {
