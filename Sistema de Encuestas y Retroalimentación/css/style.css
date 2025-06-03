@@ -211,6 +211,7 @@ body {
     font-weight: 600;
 }
 
+/* Ajustar la imagen */
 .layout-inicio{
  display: flex;
   justify-content: center;
@@ -218,6 +219,10 @@ body {
   gap: 40px;
   height: 100vh;
   padding: 20px; 
+  flex-wrap: wrap;
+  max-width: 100%;       
+  box-sizing: border-box;
+  overflow: hidden;  
 }
 
 .columna-izquierda{
