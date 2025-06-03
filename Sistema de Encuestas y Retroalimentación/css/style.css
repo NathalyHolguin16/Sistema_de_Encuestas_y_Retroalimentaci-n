@@ -1,5 +1,21 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f0f4f8;
+  display: flex;
+  justify-content: center;   
+  align-items: center;       
+  min-height: 100vh;
+}
+
+
 .contenedor {
-  max-width: 600px;
+ max-width: 600px;
   padding: 40px 50px;
   margin: 60px auto;
    background-color: #e7f8ff;
@@ -67,14 +83,13 @@ button.boton {
 
 .tarjetas-opciones {
   flex-direction: column;
+ flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   gap: 20px;
-  display: flex;
-  
- 
-  
+  display: flex; 
+
 }
 
 .tarjetas-opciones2 {
@@ -138,4 +153,102 @@ select {
   border-color: #cccccc;
   background-color: #f5f0f0;
   border-radius: 8px;
+}
+
+
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Gráficos */
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 50vh;
+    width: 100%;
+    min-height: 400px;
+}
+
+/* Tarjetas */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #343a40;
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Botones de exportación */
+.export-buttons {
+    margin: 20px 0;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+/* Tabla */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Filtros */
+.form-label {
+    font-weight: 600;
+}
+
+
+
+/* Ajustar la imagen */
+.layout-inicio{
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px; 
+  flex-wrap: wrap;
+  max-width: 1200px;   
+  margin:auto;     
+}
+
+.columna-izquierda{
+  max-width: 65%;
+   min-width: 300px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.columna-derecha{
+  max-width: 35%;
+  min-width: 300px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagen-inicio {
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  object-fit: contain;
 }
