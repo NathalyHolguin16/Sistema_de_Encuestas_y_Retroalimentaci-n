@@ -7,29 +7,14 @@
     <title>Resultados de Encuestas</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- jsPDF (para PDF) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- SheetJS (para Excel) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-    <style>
-        .chart-container {
-            position: relative;
-            margin: auto;
-            height: 400px;
-            width: 100%;
-        }
-        .export-buttons {
-            margin: 20px 0;
-        }
-    </style>
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Resultados de la Encuesta: Satisfacción del Cliente</h1>
         
-        <!-- Filtros (opcional) -->
+        <!-- Filtros -->
         <div class="row mb-4">
             <div class="col-md-6">
                 <label for="filtroFecha" class="form-label">Filtrar por fecha:</label>
@@ -109,101 +94,21 @@
         <!-- Botones de Exportación -->
         <div class="export-buttons text-center">
             <button id="btnExportPDF" class="btn btn-danger me-2">
-                <i class="bi bi-file-earmark-pdf"></i> Exportar a PDF
+                Exportar a PDF
             </button>
             <button id="btnExportExcel" class="btn btn-success">
-                <i class="bi bi-file-earmark-excel"></i> Exportar a Excel
+                Exportar a Excel
             </button>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Scripts Externos -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     
-    <!-- Scripts personalizados -->
-    <script>
-        // Datos de ejemplo (simulados)
-        const data = {
-            preguntas: ["¿Cómo calificaría nuestro servicio?", "¿Recomendaría nuestro producto?"],
-            respuestas: {
-                servicio: ["Excelente", "Bueno", "Regular", "Malo"],
-                servicioCount: [45, 30, 15, 10], // Porcentajes
-                recomendacion: ["Sí", "No"],
-                recomendacionCount: [80, 20]
-            }
-        };
-
-        // Configuración de gráficos
-        document.addEventListener('DOMContentLoaded', function() {
-            // Gráfico de Barras
-            const barCtx = document.getElementById('barChart').getContext('2d');
-            const barChart = new Chart(barCtx, {
-                type: 'bar',
-                data: {
-                    labels: data.respuestas.servicio,
-                    datasets: [{
-                        label: 'Respuestas (%)',
-                        data: data.respuestas.servicioCount,
-                        backgroundColor: [
-                            'rgba(54, 162, 235, 0.7)',
-                            'rgba(75, 192, 192, 0.7)',
-                            'rgba(255, 206, 86, 0.7)',
-                            'rgba(255, 99, 132, 0.7)'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100
-                        }
-                    }
-                }
-            });
-
-            // Gráfico de Pastel
-            const pieCtx = document.getElementById('pieChart').getContext('2d');
-            const pieChart = new Chart(pieCtx, {
-                type: 'pie',
-                data: {
-                    labels: data.respuestas.recomendacion,
-                    datasets: [{
-                        data: data.respuestas.recomendacionCount,
-                        backgroundColor: [
-                            'rgba(54, 162, 235, 0.7)',
-                            'rgba(255, 99, 132, 0.7)'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true
-                }
-            });
-
-            // Exportar a PDF
-            document.getElementById('btnExportPDF').addEventListener('click', function() {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                
-                doc.text("Resultados de Encuesta - Satisfacción del Cliente", 10, 10);
-                doc.autoTable({
-                    html: '#tablaResultados',
-                    startY: 20
-                });
-                
-                // Guardar el PDF
-                doc.save('resultados_encuesta.pdf');
-            });
-
-            // Exportar a Excel
-            document.getElementById('btnExportExcel').addEventListener('click', function() {
-                const tabla = document.getElementById('tablaResultados');
-                const workbook = XLSX.utils.table_to_book(tabla);
-                XLSX.writeFile(workbook, 'resultados_encuesta.xlsx');
-            });
-        });
-    </script>
+    <!-- Script Personalizado -->
+    <script src="script.js"></script>
 </body>
 </html>
