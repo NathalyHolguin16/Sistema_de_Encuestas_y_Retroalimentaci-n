@@ -71,7 +71,7 @@ p {
   padding: 12px;
   border-radius: 10px;
   font-size: 16px;
-  background-color: #a1ceff;
+  background-color: hsl(211, 72%, 86%);
   color: white;             
   border: none;
   cursor: pointer;
@@ -85,7 +85,7 @@ button.boton {
   border-radius: 8px;
   font-size: 16px;
   background-color: #a1ceff;
-  color: white;
+  color: rgb(255, 248, 248);
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
