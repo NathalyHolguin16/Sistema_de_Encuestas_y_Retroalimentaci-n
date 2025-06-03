@@ -210,3 +210,33 @@ body {
 .form-label {
     font-weight: 600;
 }
+
+/* Ajustar la imagen */
+.layout-inicio{
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  height: 100vh;
+  padding: 20px; 
+  flex-wrap: wrap;
+  max-width: 100%;       
+  box-sizing: border-box;
+  overflow: hidden;  
+}
+
+.columna-izquierda{
+  max-width: 50%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.columna-derecha{
+  max-width: 50%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
