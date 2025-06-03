@@ -171,9 +171,9 @@ body {
 .chart-container {
     position: relative;
     margin: auto;
-    height: 70vh;
+    height: 50vh;
     width: 100%;
-    min-height: 600px;
+    min-height: 400px;
 }
 
 /* Tarjetas */
