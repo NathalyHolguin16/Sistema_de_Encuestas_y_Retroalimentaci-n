@@ -1,12 +1,12 @@
 *{
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
   background-color: #f0f4f8;
-  margin: 0;
-  padding: 0;
   display: flex;
   justify-content: center;   
   align-items: center;       
@@ -15,7 +15,7 @@ body {
 
 
 .contenedor {
-  max-width: 600px;
+ max-width: 600px;
   padding: 40px 50px;
   margin: 60px auto;
    background-color: #e7f8ff;
@@ -211,6 +211,8 @@ body {
     font-weight: 600;
 }
 
+
+
 /* Ajustar la imagen */
 .layout-inicio{
  display: flex;
@@ -219,11 +221,12 @@ body {
   gap: 30px;
   padding: 20px; 
   flex-wrap: wrap;
-  max-width: 1200px;        
+  max-width: 1200px;   
+  margin:auto;     
 }
 
 .columna-izquierda{
-  max-width: 50%;
+  max-width: 65%;
    min-width: 300px;
   flex: 1;
   display: flex;
@@ -232,7 +235,7 @@ body {
 }
 
 .columna-derecha{
-  max-width: 50%;
+  max-width: 35%;
   min-width: 300px;
   flex: 1;
   display: flex;
