@@ -6,11 +6,13 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #ff7707;
+  background-color: linear-gradient(to right, #2777ad, #fce4ec );
   display: flex;
   justify-content: center;   
   align-items: center;       
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 
