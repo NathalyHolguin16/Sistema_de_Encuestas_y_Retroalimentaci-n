@@ -71,7 +71,7 @@ p {
   padding: 12px;
   border-radius: 10px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #a1ceff;
   color: white;             
   border: none;
   cursor: pointer;
@@ -84,7 +84,7 @@ button.boton {
   padding: 12px;
   border-radius: 8px;
   font-size: 16px;
-  background-color: #c3e0ff;
+  background-color: #a1ceff;
   color: white;
   border: none;
   cursor: pointer;
