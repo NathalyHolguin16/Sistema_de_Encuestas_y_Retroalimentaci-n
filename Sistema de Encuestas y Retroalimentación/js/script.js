@@ -93,32 +93,78 @@ const data = {
 // Inicialización al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
     // Gráfico de Barras
-    const barCtx = document.getElementById('barChart').getContext('2d');
-    const barChart = new Chart(barCtx, {
-        type: 'bar',
-        data: {
-            labels: data.respuestas.servicio,
-            datasets: [{
-                label: 'Respuestas (%)',
-                data: data.respuestas.servicioCount,
-                backgroundColor: [
-                    'rgba(54, 162, 235, 0.7)',
-                    'rgba(75, 192, 192, 0.7)',
-                    'rgba(255, 206, 86, 0.7)',
-                    'rgba(255, 99, 132, 0.7)'
-                ]
-            }]
+    new Chart(document.getElementById('barChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Excelente', 'Bueno', 'Regular', 'Malo'],
+        datasets: [{
+            label: 'Respuestas (%)',
+            data: [45, 30, 15, 10],
+            backgroundColor: [
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(255, 99, 132, 0.7)'
+            ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false, // Esto permite que el gráfico llene el contenedor
+        layout: {
+            padding: {
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 20
+            }
         },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100
+        scales: {
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    font: {
+                        size: 20 // Tamaño de fuente para las etiquetas del eje X
+                    }
+                },
+                barPercentage: 0.9, // Controla el ancho de las barras (0.1 a 1)
+                categoryPercentage: 1 // Espacio entre categorías
+            },
+            y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                    font: {
+                        size: 14 // Tamaño de fuente para las etiquetas del eje Y
+                    },
+                    stepSize: 20
+                },
+                grid: {
+                    color: 'rgba(0, 0, 0, 0.1)'
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 14 // Tamaño de fuente para la leyenda
+                    },
+                    padding: 20
                 }
             }
         }
-    });
+    }
+});
 
     // Gráfico de Pastel
     const pieCtx = document.getElementById('pieChart').getContext('2d');
@@ -139,19 +185,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Exportar a PDF
-    document.getElementById('btnExportPDF').addEventListener('click', function() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        
-        doc.text("Resultados de Encuesta - Satisfacción del Cliente", 10, 10);
-        doc.autoTable({
-            html: '#tablaResultados',
-            startY: 20
-        });
-        
-        doc.save('resultados_encuesta.pdf');
-    });
 
     // Exportar a Excel
     document.getElementById('btnExportExcel').addEventListener('click', function() {
