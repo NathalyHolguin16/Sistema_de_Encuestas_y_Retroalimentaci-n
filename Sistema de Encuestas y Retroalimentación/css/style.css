@@ -82,12 +82,14 @@ button.boton {
 }
 
 .tarjetas-opciones {
+  flex-direction: column;
  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
   gap: 20px;
-  display: flex;
+  display: flex; 
+
 }
 
 .tarjetas-opciones2 {
@@ -153,11 +155,60 @@ select {
   border-radius: 8px;
 }
 
-.imagen-inicio {
-  max-width: 950px;
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+}
+
+/* Gráficos */
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 400px;
+    width: 100%;
+}
+
+/* Tarjetas */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #343a40;
+    color: white;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Botones de exportación */
+.export-buttons {
+    margin: 20px 0;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+/* Tabla */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Filtros */
+.form-label {
+    font-weight: 600;
 }
 
 .layout-inicio{
