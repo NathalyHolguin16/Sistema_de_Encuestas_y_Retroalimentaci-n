@@ -29,6 +29,12 @@ function validarFormulario(formId) {
   return valido;
 }
 
+// Función auxiliar para validar formato de email
+function validarEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
 //validacion y que la contrseña tenga minimo 6 digitos
   function validarRegistro() {
   const password = document.getElementById('password').value;
@@ -56,11 +62,7 @@ function validarFormulario(formId) {
   return true;
 }
 
-// Función auxiliar para validar formato de email
-function validarEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(email);
-}
+
 
 // Ejemplo: Validar formulario login al enviar
 if(document.getElementById('form-login')){
