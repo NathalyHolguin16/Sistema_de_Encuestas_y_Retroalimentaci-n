@@ -37,6 +37,11 @@ input {
   transition: 0.3s ease;
 }
 
+h1{
+  font-family: 'Times New Roman', Times, serif;
+
+}
+
 h2 {
   text-align: center;
   margin-bottom: 1.5rem;
