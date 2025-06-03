@@ -12,6 +12,37 @@ function validarFormulario(formId) {
     }
   });
 
+  //validacion y que la contrseña tenga minimo 6 digitos
+  function validarRegistro() {
+  const nombre = document.getElementById('nombre').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const confirmar = document.getElementById('confirmar').value;
+    let mensajesError = [];
+
+     if (!password) {
+    mensajesError.push('El campo "contraseña" es obligatorio.');
+  } else if (password.length < 6) {
+    mensajesError.push('La contraseña debe tener al menos 6 caracteres.');
+  }
+
+  if (!confirmar) {
+    mensajesError.push('El campo "confirmar contraseña" es obligatorio.');
+  } else if (password !== confirmar) {
+    mensajesError.push('Las contraseñas no coinciden.');
+  }
+
+  if (mensajesError.length > 0) {
+    alert(mensajesError.join('\n'));
+    return false;
+  }
+
+  return true;
+}
+  
+
+  
+
   // Validar email si existe
   const emailInput = form.querySelector('input[type="email"]');
   if (emailInput) {
