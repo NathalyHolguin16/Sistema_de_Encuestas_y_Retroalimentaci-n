@@ -16,7 +16,7 @@ function validarFormulario(formId) {
   // Validar email si existe
   const emailInput = form.querySelector('input[type="email"]');
   if (emailInput) {
-    const email = emailInput.value.trim();
+    const email = emailInput.value.trim(); 
     if (email && !validarEmail(email)) {
       valido = false;
       mensajesError.push('El email no tiene un formato válido.');
