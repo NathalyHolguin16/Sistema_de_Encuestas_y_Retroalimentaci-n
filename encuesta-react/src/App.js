@@ -1,13 +1,15 @@
+
 import React, { useState } from 'react';
 import './App.css';
+import Login from './login';
+import Registro from './Registro';
 
-function App() {
+function CrearEncuesta() {
   const [titulo, setTitulo] = useState('');
   const [preguntas, setPreguntas] = useState([
     { pregunta: '', respuesta: '', tipo: 'Opción múltiple' }
   ]);
 
-  // Agregar nueva pregunta
   const agregarPregunta = () => {
     setPreguntas([
       ...preguntas,
@@ -15,17 +17,14 @@ function App() {
     ]);
   };
 
-  // Manejar cambios en las preguntas
   const handlePreguntaChange = (index, campo, valor) => {
     const nuevasPreguntas = [...preguntas];
     nuevasPreguntas[index][campo] = valor;
     setPreguntas(nuevasPreguntas);
   };
 
-  // Guardar encuesta
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes hacer lo que quieras con los datos
     alert('Encuesta guardada');
   };
 
@@ -79,6 +78,23 @@ function App() {
           Guardar Encuesta
         </button>
       </form>
+    </div>
+  );
+}
+
+function App() {
+  const [vista, setVista] = useState('login'); // 'login', 'registro', 'encuesta'
+
+  return (
+    <div>
+      <nav style={{textAlign: 'center', margin: '20px'}}>
+        <button className="boton" onClick={() => setVista('login')}>Login</button>
+        <button className="boton" onClick={() => setVista('registro')}>Registro</button>
+        <button className="boton" onClick={() => setVista('encuesta')}>Crear Encuesta</button>
+      </nav>
+      {vista === 'login' && <Login />}
+      {vista === 'registro' && <Registro />}
+      {vista === 'encuesta' && <CrearEncuesta />}
     </div>
   );
 }
