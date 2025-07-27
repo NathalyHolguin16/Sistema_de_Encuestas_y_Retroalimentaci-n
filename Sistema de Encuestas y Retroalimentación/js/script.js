@@ -67,9 +67,11 @@ function validarEmail(email) {
 // Ejemplo: Validar formulario login al enviar
 if(document.getElementById('form-login')){
   document.getElementById('form-login').addEventListener('submit', function(event){
-    if(!validarFormulario('form-login')){
       event.preventDefault();
-    }
+
+        if(!validarFormulario('form-login')){
+        window.location.href = "index.html";
+        }
   });
 }
 
