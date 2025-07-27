@@ -17,7 +17,7 @@ Tecnologías utilizadas
 
 Cómo usar el sistema
 
-1. Abre el archivo `index.html` en tu navegador.
+1. Abre el archivo `login.html` en tu navegador.
 2. Navega a la sección de creación de encuestas para generar nuevas preguntas.
 3. Comparte la encuesta con los usuarios.
 4. Visualiza los resultados obtenidos desde el panel de resultados.
