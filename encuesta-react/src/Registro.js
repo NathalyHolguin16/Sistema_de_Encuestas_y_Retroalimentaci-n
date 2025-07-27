@@ -1,59 +1,40 @@
-import React, { useState } from 'react';
+import React from 'react';
+
 
 function Registro() {
-  const [nombre, setNombre] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmar, setConfirmar] = useState('');
+  const validarRegistro = (e) => {
+    e.preventDefault(); // evita recargar la página
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== confirmar) {
-      alert('Las contraseñas no coinciden');
-      return;
-    }
-    alert('Registro exitoso');
-
+    // Aquí podrías agregar validaciones personalizadas si las tenías en script.js
+    console.log("Formulario de registro enviado.");
   };
 
   return (
     <div className="contenedor">
       <h2>Registro de Usuario</h2>
-      <form className="formulario" onSubmit={handleSubmit}>
-        <label>Nombre:</label>
-        <input
-          type="text"
-          required
-          value={nombre}
-          onChange={e => setNombre(e.target.value)}
-        />
-        <label>Email:</label>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <label>Contraseña:</label>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <label>Confirmar contraseña:</label>
-        <input
-          type="password"
-          required
-          value={confirmar}
-          onChange={e => setConfirmar(e.target.value)}
-        />
-        <button type="submit" className="boton">
-          Registrarse
-        </button>
+
+      <form id="form-registro" onSubmit={validarRegistro}>
+        <label htmlFor="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required />
+        <br />
+
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <br />
+
+        <label htmlFor="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required />
+        <br />
+
+        <label htmlFor="confirmar">Confirmar contraseña:</label>
+        <input type="password" id="confirmar" name="confirmar" required />
+        <br />
+
+        <button type="submit" className="boton">REGISTRARSE</button>
       </form>
     </div>
   );
 }
 
 export default Registro;
+
