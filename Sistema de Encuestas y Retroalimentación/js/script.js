@@ -66,7 +66,7 @@ function validarEmail(email) {
 
 // Ejemplo: Validar formulario login al enviar
 if(document.getElementById('form-login')){
-  document.getElementById('form-login').addEventListener('submit', function(event){
+  document.getElementById('form-login').addEventListener('submit', function(event) {
       event.preventDefault();
 
         if(validarFormulario('form-login')){
