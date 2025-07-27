@@ -1,38 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
+
 
 function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Inicio de sesión realizado');
-  };
-
   return (
     <div className="contenedor">
-      <h2>Iniciar Sesión</h2>
-      <form className="formulario" onSubmit={handleSubmit}>
-        <label>Email:</label>
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-        <label>Contraseña:</label>
-        <input
-          type="password"
-          required
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-        <button type="submit" className="boton">
-          Iniciar Sesión
-        </button>
+      <h2>🔐 Iniciar Sesión</h2>
+
+      <form id="form-login" className="formulario">
+        <label htmlFor="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required />
+
+        <br />
+        <br />
+
+        <label htmlFor="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required />
+
+        <br />
+        <br />
+
+        <button type="submit" className="boton">LOGIN</button>
       </form>
+
+      <br />
+      <br />
+
+      <p className="enlace">
+        ¿No tienes cuenta? <a href="/registro">Regístrate aquí</a>
+      </p>
     </div>
   );
 }
 
 export default Login;
+
