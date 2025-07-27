@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import './App.css';
 import Login from './login';
 import Registro from './Registro';
+import Resultados from './Resultados';
 
 function CrearEncuesta() {
   const [titulo, setTitulo] = useState('');
@@ -91,10 +91,12 @@ function App() {
         <button className="boton" onClick={() => setVista('login')}>Login</button>
         <button className="boton" onClick={() => setVista('registro')}>Registro</button>
         <button className="boton" onClick={() => setVista('encuesta')}>Crear Encuesta</button>
+        <button className="boton" onClick={() => setVista('resultados')}>Resultados</button>
       </nav>
       {vista === 'login' && <Login />}
       {vista === 'registro' && <Registro />}
       {vista === 'encuesta' && <CrearEncuesta />}
+      {vista === 'resultados' && <Resultados />}
     </div>
   );
 }
