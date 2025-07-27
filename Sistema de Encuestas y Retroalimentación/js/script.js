@@ -69,8 +69,8 @@ if(document.getElementById('form-login')){
   document.getElementById('form-login').addEventListener('submit', function(event){
       event.preventDefault();
 
-        if(!validarFormulario('form-login')){
-        window.location.href = "index.html";
+        if(validarFormulario('form-login')){
+          window.location.href = "index.html";
         }
   });
 }
