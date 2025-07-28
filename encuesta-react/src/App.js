@@ -4,15 +4,9 @@ import './App.css';
 import Login from './Login';
 import Registro from './Registro';
 import Inicio from './Inicio';
+import CrearEncuesta from './CrearEncuesta';
 
-function CrearEncuesta() {
-  return (
-    <div className="contenedor">
-      <h2>Crear Nueva Encuesta</h2>
-      {/* contenido omitido por brevedad */}
-    </div>
-  );
-}
+
 
 function App() {
   return (
@@ -27,7 +21,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
         <Route path="/Inicio" element={<Inicio />} />
-        <Route path="/encuesta" element={<CrearEncuesta />} />
+        <Route path="/Crear" element={<CrearEncuesta />} />
       </Routes>
     </div>
   );
