@@ -1,12 +1,28 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom'; // ✅ Importar hook para redirigir
 
 function Registro() {
-  const validarRegistro = (e) => {
-    e.preventDefault(); // evita recargar la página
+  const navigate = useNavigate(); // ✅ inicializar navegación
 
-    // Aquí podrías agregar validaciones personalizadas si las tenías en script.js
-    console.log("Formulario de registro enviado.");
+  const validarRegistro = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const nombre = form.nombre.value.trim();
+    const email = form.email.value.trim();
+    const password = form.password.value;
+    const confirmar = form.confirmar.value;
+
+    // Validación adicional: confirmar contraseña
+    if (password !== confirmar) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
+    // Aquí podrías guardar datos o hacer fetch a backend...
+
+    alert("Registro exitoso ✅");
+    navigate('/'); // ✅ Redirigir al Login (ruta "/")
   };
 
   return (
