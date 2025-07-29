@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-=======
- HEAD
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ para redirigir
->>>>>>> a54a809e3d79e3296cca20fd804862adddac9c29
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
