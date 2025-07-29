@@ -13,6 +13,11 @@ function Registro() {
     const password = form.password.value;
     const confirmar = form.confirmar.value;
 
+    if (password.length<6){
+      alert("La contraseña debe tener almenos 6 caracteres.");
+      return;
+    }
+   
     // Validación adicional: confirmar contraseña
     if (password !== confirmar) {
       alert("Las contraseñas no coinciden.");
