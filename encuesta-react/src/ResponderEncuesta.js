@@ -1,49 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function ResponderEncuesta() {
-  const encuestas = [
-    {
-      titulo: '📚 Encuesta Educativa',
-      descripcion: 'Matemáticas, Lenguaje, Ciencias Sociales y Naturales, etc.',
-    },
-    {
-      titulo: '📊 Encuesta Empresarial',
-      descripcion: 'Atención al cliente, satisfacción laboral, seguridad industrial, etc.',
-    },
-    {
-      titulo: '👤 Satisfacción del cliente',
-      descripcion: 'Satisfacción, críticas, recomendaciones.',
-    },
-    {
-      titulo: '🚑 Encuesta de Salud',
-      descripcion: 'Satisfacción con los servicios de salud, síntomas.',
-    },
-  ];
+  const [encuestasDisponibles, setEncuestasDisponibles] = useState([]);
+  const navigate = useNavigate();
 
-  const realizarEncuesta = (titulo) => {
-    alert(`Iniciando: ${titulo}`);
-    // Aquí luego podemos redirigir a un formulario con preguntas reales
+  // Cargar encuestas al montar el componente
+  useEffect(() => {
+    const encuestasGuardadas = JSON.parse(localStorage.getItem('encuestas') || '[]');
+    setEncuestasDisponibles(encuestasGuardadas);
+  }, []);
+
+  const responderEncuesta = (encuesta) => {
+    navigate('/responder-encuesta-detalle', { state: { encuesta } });
   };
 
   return (
     <div className="contenedor">
       <h1>Encuestas Disponibles</h1>
       <br />
-      <div className="tarjetas-opciones2">
-        {encuestas.map((encuesta, index) => (
-          <div className="tarjeta" key={index}>
-            <h3>{encuesta.titulo}</h3>
-            <p>{encuesta.descripcion}</p>
-            <br />
-            <button className="boton" onClick={() => realizarEncuesta(encuesta.titulo)}>
-              Realizar Encuesta
-            </button>
-          </div>
-        ))}
-      </div>
+      {encuestasDisponibles.length === 0 ? (
+        <p>No hay encuestas disponibles para responder.</p>
+      ) : (
+        <div className="tarjetas-opciones2">
+          {encuestasDisponibles.map((encuesta, index) => (
+            <div className="tarjeta" key={index}>
+              <h3>{encuesta.titulo}</h3>
+              <p>{encuesta.preguntas.length} preguntas</p>
+              <p>Creada el: {new Date(encuesta.fecha).toLocaleDateString()}</p>
+              <br />
+              <button 
+                className="boton" 
+                onClick={() => responderEncuesta(encuesta)}
+              >
+                Responder Encuesta
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
 export default ResponderEncuesta;
-

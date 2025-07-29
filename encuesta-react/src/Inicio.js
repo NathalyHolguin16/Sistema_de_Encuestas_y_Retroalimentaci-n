@@ -31,10 +31,10 @@ function Inicio() {
             </div>
 
             <div className="tarjeta">
-              <h3>Ver Resultados</h3>
+             <h3>Ver Resultados</h3>
               <p>Consulta los resultados obtenidos de las encuestas.</p>
               <a className="boton" href="/resultados">Ver</a>
-            </div>
+           </div>
           </div>
         </div>
       </div>

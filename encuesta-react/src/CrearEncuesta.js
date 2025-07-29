@@ -1,40 +1,119 @@
 import React, { useState } from 'react';
+import './CrearEncuesta.css'; // Importamos el CSS específico
 
 function CrearEncuesta() {
   const [titulo, setTitulo] = useState('');
   const [preguntas, setPreguntas] = useState([
-    { pregunta: '', respuesta: '', tipo: 'Opción múltiple' }
+    { 
+      id: Date.now(), 
+      pregunta: '', 
+      tipo: 'opcion-multiple', 
+      opciones: ['', ''], 
+      requerida: false 
+    }
   ]);
 
-  const agregarPregunta = () => {
-    setPreguntas([
-      ...preguntas,
-      { pregunta: '', respuesta: '', tipo: 'Opción múltiple' }
-    ]);
+const agregarPregunta = () => {
+  setPreguntas([
+    ...preguntas,
+    { 
+      id: `pregunta-${Date.now()}-${Math.floor(Math.random() * 1000)}`, 
+      pregunta: '', 
+      tipo: 'opcion-multiple', 
+      opciones: ['', ''], 
+      requerida: false 
+    }
+  ]);
+};
+
+  const eliminarPregunta = (id) => {
+    setPreguntas(preguntas.filter(p => p.id !== id));
   };
 
-  const handlePreguntaChange = (index, campo, valor) => {
+  const agregarOpcion = (preguntaIndex) => {
     const nuevasPreguntas = [...preguntas];
-    nuevasPreguntas[index][campo] = valor;
+    nuevasPreguntas[preguntaIndex].opciones.push('');
     setPreguntas(nuevasPreguntas);
+  };
+
+  const eliminarOpcion = (preguntaIndex, opcionIndex) => {
+    const nuevasPreguntas = [...preguntas];
+    nuevasPreguntas[preguntaIndex].opciones.splice(opcionIndex, 1);
+    setPreguntas(nuevasPreguntas);
+  };
+
+  const handlePreguntaChange = (id, campo, valor) => {
+    setPreguntas(preguntas.map(p => 
+      p.id === id ? {...p, [campo]: valor} : p
+    ));
+  };
+
+  const handleOpcionChange = (preguntaId, opcionIndex, valor) => {
+    setPreguntas(preguntas.map(p => {
+      if (p.id === preguntaId) {
+        const nuevasOpciones = [...p.opciones];
+        nuevasOpciones[opcionIndex] = valor;
+        return {...p, opciones: nuevasOpciones};
+      }
+      return p;
+    }));
+  };
+
+  const toggleRequerida = (id) => {
+    setPreguntas(preguntas.map(p => 
+      p.id === id ? {...p, requerida: !p.requerida} : p
+    ));
   };
 
   const guardarEncuesta = (e) => {
     e.preventDefault();
 
-    // Validación simple
     if (!titulo.trim()) {
       alert('El título es obligatorio');
       return;
     }
 
-    // Aquí podrías guardar en localStorage o enviarlo a un backend
-    console.log({ titulo, preguntas });
+    // Validar preguntas
+    for (const [index, p] of preguntas.entries()) {
+      if (!p.pregunta.trim()) {
+        alert(`La pregunta ${index + 1} no puede estar vacía`);
+        return;
+      }
+      
+      if (['opcion-multiple', 'casillas'].includes(p.tipo)) {
+        for (const [i, opcion] of p.opciones.entries()) {
+          if (!opcion.trim()) {
+            alert(`La opción ${i + 1} de la pregunta ${index + 1} no puede estar vacía`);
+            return;
+          }
+        }
+      }
+    }
+
+    // Guardar en localStorage
+    const encuesta = {
+      titulo,
+      preguntas,
+      fecha: new Date().toISOString()
+    };
+
+    const encuestasGuardadas = JSON.parse(localStorage.getItem('encuestas') || '[]');
+    encuestasGuardadas.push(encuesta);
+    localStorage.setItem('encuestas', JSON.stringify(encuestasGuardadas));
+
     alert('Encuesta guardada correctamente ✅');
 
-    // Reiniciar si quieres:
+    // Resetear formulario
     setTitulo('');
-    setPreguntas([{ pregunta: '', respuesta: '', tipo: 'Opción múltiple' }]);
+    setPreguntas([
+      { 
+        id: Date.now(), 
+        pregunta: '', 
+        tipo: 'opcion-multiple', 
+        opciones: ['', ''], 
+        requerida: false 
+      }
+    ]);
   };
 
   return (
@@ -42,54 +121,142 @@ function CrearEncuesta() {
       <h2>Crear Nueva Encuesta</h2>
       <br />
       <form className="formulario" onSubmit={guardarEncuesta}>
-        <label>Título de la encuesta:</label>
-        <input
-          type="text"
-          value={titulo}
-          onChange={e => setTitulo(e.target.value)}
-          required
-        />
+        <div className="bloque-pregunta">
+          <label>Título de la encuesta:</label>
+          <input
+            type="text"
+            value={titulo}
+            onChange={e => setTitulo(e.target.value)}
+            required
+            placeholder="Ej: Satisfacción del cliente"
+          />
+        </div>
 
-        <div id="contenedor-preguntas">
-          {preguntas.map((p, i) => (
-            <div className="preguntas" key={i}>
-              <label>Pregunta {i + 1}:</label>
+        {preguntas.map((p, preguntaIndex) => (
+          <div className="bloque-pregunta" key={p.id}>
+            <div className="encabezado-pregunta">
               <input
                 type="text"
                 value={p.pregunta}
-                onChange={e => handlePreguntaChange(i, 'pregunta', e.target.value)}
+                onChange={e => handlePreguntaChange(p.id, 'pregunta', e.target.value)}
                 required
+                placeholder={`Pregunta ${preguntaIndex + 1}`}
+                className="input-pregunta"
               />
+              
+              <div className="controles-pregunta">
+                <select
+                  value={p.tipo}
+                  onChange={e => handlePreguntaChange(p.id, 'tipo', e.target.value)}
+                >
+                  <option value="opcion-multiple">Opción múltiple</option>
+                  <option value="respuesta-corta">Respuesta corta</option>
+                  <option value="parrafo">Párrafo</option>
+                  <option value="escala">Escala de satisfacción</option>
+                  <option value="casillas">Casillas de verificación</option>
+                </select>
+                
+                <label className="requerida-label">
+                  <input
+                    type="checkbox"
+                    checked={p.requerida}
+                    onChange={() => toggleRequerida(p.id)}
+                  />
+                  Requerida
+                </label>
+                
+                {preguntas.length > 1 && (
+                  <button 
+                    type="button" 
+                    className="boton-eliminar"
+                    onClick={() => eliminarPregunta(p.id)}
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+            </div>
 
-              <label>Ingrese respuesta</label>
+            {(p.tipo === 'opcion-multiple' || p.tipo === 'casillas') && (
+              <div className="opciones-container">
+                {p.opciones.map((opcion, opcionIndex) => (
+                  <div key={opcionIndex} className="opcion-item">
+                    <div className="tipo-opcion">
+                      {p.tipo === 'opcion-multiple' ? '○' : '☐'}
+                    </div>
+                    <input
+                      type="text"
+                      value={opcion}
+                      onChange={e => handleOpcionChange(p.id, opcionIndex, e.target.value)}
+                      placeholder={`Opción ${opcionIndex + 1}`}
+                      className="input-opcion"
+                    />
+                    {p.opciones.length > 2 && (
+                      <button
+                        type="button"
+                        className="boton-eliminar-opcion"
+                        onClick={() => eliminarOpcion(preguntaIndex, opcionIndex)}
+                      >
+                        ✕
+                      </button>
+                    )}
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className="boton-agregar-opcion"
+                  onClick={() => agregarOpcion(preguntaIndex)}
+                >
+                  + Agregar opción
+                </button>
+              </div>
+            )}
+
+            {p.tipo === 'respuesta-corta' && (
               <input
                 type="text"
-                value={p.respuesta}
-                onChange={e => handlePreguntaChange(i, 'respuesta', e.target.value)}
-                required
+                disabled
+                placeholder="Respuesta corta"
+                className="input-deshabilitado"
               />
+            )}
 
-              <label>Tipo de respuesta:</label>
-              <select
-                value={p.tipo}
-                onChange={e => handlePreguntaChange(i, 'tipo', e.target.value)}
-              >
-                <option>Opción múltiple</option>
-                <option>Respuesta corta</option>
-                <option>Escala de satisfacción</option>
-              </select>
-            </div>
-          ))}
+            {p.tipo === 'parrafo' && (
+              <textarea
+                disabled
+                placeholder="Respuesta larga"
+                className="input-deshabilitado"
+                rows={3}
+              />
+            )}
+
+            {p.tipo === 'escala' && (
+              <div className="escala-container">
+                <div className="escala-labels">
+                  <span>1 (Malo)</span>
+                  <span>5 (Excelente)</span>
+                </div>
+                <div className="escala-puntos">
+                  {[1, 2, 3, 4, 5].map(punto => (
+                    <div key={punto} className="punto-escala">
+                      <div className="circulo-escala"></div>
+                      <span>{punto}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+
+        <div className="acciones-encuesta">
+          <button type="button" className="boton boton-secundario" onClick={agregarPregunta}>
+            + Agregar Pregunta
+          </button>
+          <button type="submit" className="boton">
+            Guardar Encuesta
+          </button>
         </div>
-
-        <br />
-        <button type="button" className="boton" onClick={agregarPregunta}>
-          Agregar Pregunta
-        </button>
-        <br /><br />
-        <button type="submit" className="boton">
-          Guardar Encuesta
-        </button>
       </form>
     </div>
   );
