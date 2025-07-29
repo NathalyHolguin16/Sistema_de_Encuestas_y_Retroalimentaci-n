@@ -22,7 +22,7 @@ function Login() {
 
   return (
     <div className="contenedor">
-      <h2>🔐 Iniciar Sesión</h2>
+      <h2> Iniciar Sesión</h2>
 
       <form className="formulario" onSubmit={manejarLogin}>
         <label htmlFor="email">Correo electrónico:</label>
