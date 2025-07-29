@@ -1,38 +1,49 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ para redirigir
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const validarLogin = (e) => {
+  const manejarLogin = (e) => {
     e.preventDefault();
 
-    const form = e.target;
-    const email = form.email.value.trim();
-    const password = form.password.value;
-
-    // Simulación de validación básica
-    if (email === "" || password === "") {
-      alert("Por favor, completa todos los campos.");
+    if (password.length < 6) {
+      alert('La contraseña debe tener al menos 6 caracteres.');
       return;
     }
 
-    // Aquí podrías verificar contra datos reales (localStorage, API...)
-    alert("Login exitoso ✅");
-    navigate('/inicio'); // ✅ redirige a la pantalla de inicio
+    // Aquí puedes agregar validaciones contra localStorage si deseas
+    alert('Login exitoso ✅');
+    navigate('/inicio'); // Redirigir a la pantalla de inicio
   };
 
   return (
     <div className="contenedor">
       <h2>🔐 Iniciar Sesión</h2>
 
-      <form id="form-login" className="formulario" onSubmit={validarLogin}>
+      <form className="formulario" onSubmit={manejarLogin}>
         <label htmlFor="email">Correo electrónico:</label>
-        <input type="email" id="email" name="email" required />
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+        />
+
         <br /><br />
 
         <label htmlFor="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required />
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
+
         <br /><br />
 
         <button type="submit" className="boton">LOGIN</button>
@@ -41,7 +52,7 @@ function Login() {
       <br /><br />
 
       <p className="enlace">
-        ¿No tienes cuenta? <a href="/registro">Regístrate aquí</a>
+        ¿No tienes cuenta? <Link to="/registro">Regístrate aquí</Link>
       </p>
     </div>
   );
