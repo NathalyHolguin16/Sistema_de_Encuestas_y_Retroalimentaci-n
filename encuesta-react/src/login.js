@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import './Login.css'; // Archivo CSS para los estilos
+import './App.css'; // Archivo CSS para los estilos
 
 function Login() {
   const [credentials, setCredentials] = useState({
