@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ para redirigir
+import '/App.css'
 
 function Login() {
   const navigate = useNavigate();
