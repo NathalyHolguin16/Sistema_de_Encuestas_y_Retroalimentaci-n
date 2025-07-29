@@ -1,11 +1,9 @@
-<<<<<<< HEAD
+ HEAD
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ para redirigir
-=======
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
->>>>>>> ec998a78bc7ba865fcaa9eb5e7435de8ead18d61
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
