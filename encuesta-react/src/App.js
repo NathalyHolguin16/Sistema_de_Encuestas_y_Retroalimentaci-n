@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Login from './Login';
+import Login from './login';
 import Registro from './Registro';
-import Inicio from './Inicio';
+import Inicio from './inicio';
 import CrearEncuesta from './CrearEncuesta';
 import ResponderEncuesta from './ResponderEncuesta';
 
