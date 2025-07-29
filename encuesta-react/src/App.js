@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Login from './login';
+import Login from './Login';
 import Registro from './Registro';
 import Inicio from './Inicio';
 import CrearEncuesta from './CrearEncuesta';
