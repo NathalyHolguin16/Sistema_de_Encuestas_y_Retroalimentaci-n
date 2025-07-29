@@ -1,6 +1,5 @@
 <<<<<<< HEAD
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ para redirigir
+
 =======
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
