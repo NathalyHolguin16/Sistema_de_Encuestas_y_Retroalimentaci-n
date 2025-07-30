@@ -1,61 +1,131 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // ✅ Importar hook para redirigir
+// src/Registro.js
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import './App.css';
 
 function Registro() {
-  const navigate = useNavigate(); // ✅ inicializar navegación
+  const [nombre, setNombre] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmar, setConfirmar] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const validarRegistro = (e) => {
     e.preventDefault();
+    setError('');
 
-    const form = e.target;
-    const nombre = form.nombre.value.trim();
-    const email = form.email.value.trim();
-    const password = form.password.value;
-    const confirmar = form.confirmar.value;
-
-    if (password.length<6){
-      alert("La contraseña debe tener almenos 6 caracteres.");
+    if (!nombre.trim()) {
+      setError('El nombre es obligatorio');
       return;
     }
-   
-    // Validación adicional: confirmar contraseña
+
+    if (!email.trim()) {
+      setError('El email es obligatorio');
+      return;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setError('Por favor ingresa un email válido');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+
     if (password !== confirmar) {
-      alert("Las contraseñas no coinciden.");
+      setError('Las contraseñas no coinciden');
       return;
     }
 
-    // Aquí podrías guardar datos o hacer fetch a backend...
-
+    // Guardar usuario
+    const usuario = {
+      nombre,
+      email
+    };
+    
+    localStorage.setItem('usuario', JSON.stringify(usuario));
     alert("Registro exitoso ✅");
-    navigate('/'); // ✅ Redirigir al Login (ruta "/")
+    navigate('/inicio');
   };
 
   return (
     <div className="contenedor">
       <h2>Registro de Usuario</h2>
+      
+      {error && (
+        <div className="error-message">
+          {error}
+        </div>
+      )}
 
-      <form id="form-registro" onSubmit={validarRegistro}>
-        <label htmlFor="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required />
-        <br />
+      <form className="formulario" onSubmit={validarRegistro}>
+        <div className="input-group">
+          <label htmlFor="nombre">Nombre completo:</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            value={nombre}
+            onChange={e => setNombre(e.target.value)}
+            required
+            className="input-field"
+            placeholder="Tu nombre completo"
+          />
+        </div>
 
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" required />
-        <br />
+        <div className="input-group">
+          <label htmlFor="email">Correo electrónico:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            className="input-field"
+            placeholder="tu@email.com"
+          />
+        </div>
 
-        <label htmlFor="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required />
-        <br />
+        <div className="input-group">
+          <label htmlFor="password">Contraseña:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            required
+            className="input-field"
+            placeholder="Mínimo 6 caracteres"
+          />
+        </div>
 
-        <label htmlFor="confirmar">Confirmar contraseña:</label>
-        <input type="password" id="confirmar" name="confirmar" required />
-        <br />
+        <div className="input-group">
+          <label htmlFor="confirmar">Confirmar contraseña:</label>
+          <input
+            type="password"
+            id="confirmar"
+            name="confirmar"
+            value={confirmar}
+            onChange={e => setConfirmar(e.target.value)}
+            required
+            className="input-field"
+            placeholder="Repite tu contraseña"
+          />
+        </div>
 
         <button type="submit" className="boton">REGISTRARSE</button>
       </form>
+
+      <p className="enlace">
+        ¿Ya tienes cuenta? <Link to="/">Inicia sesión aquí</Link>
+      </p>
     </div>
   );
 }
 
 export default Registro;
-

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CrearEncuesta.css'; // Importamos el CSS específico
+import './CrearEncuesta.css';
 
 function CrearEncuesta() {
   const [titulo, setTitulo] = useState('');
@@ -12,19 +12,22 @@ function CrearEncuesta() {
       requerida: false 
     }
   ]);
+  
+  // Nuevo estado para el enlace generado
+  const [enlaceGenerado, setEnlaceGenerado] = useState('');
 
-const agregarPregunta = () => {
-  setPreguntas([
-    ...preguntas,
-    { 
-      id: `pregunta-${Date.now()}-${Math.floor(Math.random() * 1000)}`, 
-      pregunta: '', 
-      tipo: 'opcion-multiple', 
-      opciones: ['', ''], 
-      requerida: false 
-    }
-  ]);
-};
+  const agregarPregunta = () => {
+    setPreguntas([
+      ...preguntas,
+      { 
+        id: `pregunta-${Date.now()}-${Math.floor(Math.random() * 1000)}`, 
+        pregunta: '', 
+        tipo: 'opcion-multiple', 
+        opciones: ['', ''], 
+        requerida: false 
+      }
+    ]);
+  };
 
   const eliminarPregunta = (id) => {
     setPreguntas(preguntas.filter(p => p.id !== id));
@@ -65,6 +68,32 @@ const agregarPregunta = () => {
     ));
   };
 
+  // Función para copiar el enlace al portapapeles
+  const copiarEnlace = () => {
+    navigator.clipboard.writeText(enlaceGenerado)
+      .then(() => {
+        alert('Enlace copiado al portapeles');
+      })
+      .catch(err => {
+        console.error('Error al copiar: ', err);
+        alert('Error al copiar el enlace');
+      });
+  };
+
+  // Función para compartir la encuesta
+  const compartirEncuesta = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Participa en mi encuesta',
+        text: 'Por favor, responde mi encuesta:',
+        url: enlaceGenerado,
+      })
+      .catch(error => console.log('Error al compartir', error));
+    } else {
+      alert('La función de compartir no está disponible en este navegador. Copia el enlace manualmente.');
+    }
+  };
+
   const guardarEncuesta = (e) => {
     e.preventDefault();
 
@@ -90,8 +119,12 @@ const agregarPregunta = () => {
       }
     }
 
+    // Generar un ID único para la encuesta
+    const idEncuesta = Date.now();
+    
     // Guardar en localStorage
     const encuesta = {
+      id: idEncuesta,
       titulo,
       preguntas,
       fecha: new Date().toISOString()
@@ -103,7 +136,12 @@ const agregarPregunta = () => {
 
     alert('Encuesta guardada correctamente ✅');
 
-    // Resetear formulario
+    // Generar enlace único para compartir
+    const enlace = `${window.location.origin}/responder-encuesta-detalle/${idEncuesta}`;
+    setEnlaceGenerado(enlace);
+
+    // Resetear formulario (opcional, comentado para que el usuario vea el enlace)
+    /*
     setTitulo('');
     setPreguntas([
       { 
@@ -114,6 +152,7 @@ const agregarPregunta = () => {
         requerida: false 
       }
     ]);
+    */
   };
 
   return (
@@ -258,6 +297,40 @@ const agregarPregunta = () => {
           </button>
         </div>
       </form>
+
+      {/* Sección para mostrar el enlace después de guardar */}
+      {enlaceGenerado && (
+        <div className="enlace-generado">
+          <h3>Enlace para compartir tu encuesta</h3>
+          <p>Comparte este enlace con los participantes:</p>
+          
+          <div className="input-enlace">
+            <input 
+              type="text" 
+              value={enlaceGenerado} 
+              readOnly 
+              className="input-field"
+            />
+            <button 
+              type="button" 
+              className="boton boton-copiar"
+              onClick={copiarEnlace}
+            >
+              Copiar
+            </button>
+          </div>
+          
+          <div className="share-buttons">
+            <button 
+              type="button" 
+              className="boton"
+              onClick={compartirEncuesta}
+            >
+              Compartir Encuesta
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
