@@ -54,24 +54,26 @@ function ResponderEncuestaDetalle() {
       }
     }
 
-    // Obtener respuestas existentes con manejo de errores
+    // Obtener respuestas existentes con manejo seguro
     let todasLasRespuestas = {};
     try {
-      const respuestasData = localStorage.getItem('respuestas');
+      const respuestasGuardadas = localStorage.getItem('respuestas');
       
-      // Verificar si hay datos y si son válidos
-      if (respuestasData) {
-        // Si los datos son un objeto (no debería pasar), usarlos directamente
-        if (typeof respuestasData === 'object') {
-          todasLasRespuestas = respuestasData;
+      // Si no hay respuestas guardadas, inicializamos un objeto vacío
+      if (!respuestasGuardadas) {
+        todasLasRespuestas = {};
+      } else {
+        // Verificamos si ya es un objeto (no debería pasar, pero por seguridad)
+        if (typeof respuestasGuardadas === 'object') {
+          todasLasRespuestas = respuestasGuardadas;
         } else {
-          // Si es una cadena, intentar parsearla
-          todasLasRespuestas = JSON.parse(respuestasData);
+          // Parseamos solo si es un string
+          todasLasRespuestas = JSON.parse(respuestasGuardadas);
         }
       }
     } catch (error) {
       console.error('Error al leer respuestas:', error);
-      // Si hay error de parseo, inicializar como objeto vacío
+      // Si hay error, inicializamos un objeto vacío
       todasLasRespuestas = {};
     }
 
