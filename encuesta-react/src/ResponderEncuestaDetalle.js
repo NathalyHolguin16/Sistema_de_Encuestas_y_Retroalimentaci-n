@@ -1,6 +1,6 @@
-  import React, { useState } from 'react';
-  import { useLocation, useNavigate } from 'react-router-dom';
-  import './ResponderEncuestaDetalle.css';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import './ResponderEncuestaDetalle.css';
 
 function ResponderEncuestaDetalle() {
   const { state } = useLocation();
@@ -54,8 +54,26 @@ function ResponderEncuestaDetalle() {
       }
     }
 
-    // Obtener respuestas existentes
-    let todasLasRespuestas = JSON.parse(localStorage.getItem('respuestas') || {});
+    // Obtener respuestas existentes con manejo de errores
+    let todasLasRespuestas = {};
+    try {
+      const respuestasData = localStorage.getItem('respuestas');
+      
+      // Verificar si hay datos y si son válidos
+      if (respuestasData) {
+        // Si los datos son un objeto (no debería pasar), usarlos directamente
+        if (typeof respuestasData === 'object') {
+          todasLasRespuestas = respuestasData;
+        } else {
+          // Si es una cadena, intentar parsearla
+          todasLasRespuestas = JSON.parse(respuestasData);
+        }
+      }
+    } catch (error) {
+      console.error('Error al leer respuestas:', error);
+      // Si hay error de parseo, inicializar como objeto vacío
+      todasLasRespuestas = {};
+    }
 
     // Crear estructura para esta encuesta si no existe
     if (!todasLasRespuestas[encuesta.id]) {
@@ -72,11 +90,15 @@ function ResponderEncuestaDetalle() {
       desdePublico: false // Marcamos como respuesta privada
     });
 
-    // Guardar en localStorage
-    localStorage.setItem('respuestas', JSON.stringify(todasLasRespuestas));
-
-    alert('¡Gracias por responder la encuesta!');
-    navigate('/inicio');
+    // Guardar en localStorage con manejo de errores
+    try {
+      localStorage.setItem('respuestas', JSON.stringify(todasLasRespuestas));
+      alert('¡Gracias por responder la encuesta!');
+      navigate('/inicio');
+    } catch (error) {
+      console.error('Error al guardar respuestas:', error);
+      alert('Ocurrió un error al guardar tus respuestas. Por favor intenta nuevamente.');
+    }
   };
 
   return (
@@ -87,7 +109,7 @@ function ResponderEncuestaDetalle() {
           <div key={pregunta.id} className="bloque-pregunta">
             <label>
               {pregunta.pregunta}
-              {pregunta.requerida && <span style={{ color: 'red' }}> *</span>}
+              {pregunta.requerida && <span className="requerido"> *</span>}
             </label>
             
             {pregunta.tipo === 'opcion-multiple' && (
@@ -127,6 +149,7 @@ function ResponderEncuestaDetalle() {
                 type="text"
                 onChange={(e) => handleChange(pregunta.id, e.target.value)}
                 required={pregunta.requerida}
+                className="input-respuesta"
               />
             )}
 
@@ -135,6 +158,7 @@ function ResponderEncuestaDetalle() {
                 rows={4}
                 onChange={(e) => handleChange(pregunta.id, e.target.value)}
                 required={pregunta.requerida}
+                className="textarea-respuesta"
               />
             )}
 
@@ -163,7 +187,7 @@ function ResponderEncuestaDetalle() {
           </div>
         ))}
 
-        <button type="submit" className="boton">
+        <button type="submit" className="boton-enviar">
           Enviar Respuestas
         </button>
       </form>
