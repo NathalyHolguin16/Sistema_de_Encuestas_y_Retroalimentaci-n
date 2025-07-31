@@ -1,6 +1,6 @@
-
-import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+  import React, { useState } from 'react';
+  import { useLocation, useNavigate } from 'react-router-dom';
+  import './ResponderEncuestaDetalle.css';
 
 function ResponderEncuestaDetalle() {
   const { state } = useLocation();
@@ -54,10 +54,26 @@ function ResponderEncuestaDetalle() {
       }
     }
 
-    // Guardar respuestas
-const respuestasGuardadas = JSON.parse(localStorage.getItem('respuestas') || '{}');
-respuestasGuardadas[encuesta.titulo] = respuestas;
-localStorage.setItem('respuestas', JSON.stringify(respuestasGuardadas));
+    // Obtener respuestas existentes
+    let todasLasRespuestas = JSON.parse(localStorage.getItem('respuestas') || {});
+
+    // Crear estructura para esta encuesta si no existe
+    if (!todasLasRespuestas[encuesta.id]) {
+      todasLasRespuestas[encuesta.id] = {
+        titulo: encuesta.titulo,
+        respuestas: []
+      };
+    }
+
+    // Agregar nueva respuesta
+    todasLasRespuestas[encuesta.id].respuestas.push({
+      ...respuestas,
+      fecha: new Date().toISOString(),
+      desdePublico: false // Marcamos como respuesta privada
+    });
+
+    // Guardar en localStorage
+    localStorage.setItem('respuestas', JSON.stringify(todasLasRespuestas));
 
     alert('¡Gracias por responder la encuesta!');
     navigate('/inicio');
