@@ -30,7 +30,7 @@ function VerResultados() {
   const [isLoading, setIsLoading] = useState(true);
   const [tipoGrafico, setTipoGrafico] = useState('barra');
   const [error, setError] = useState('');
-  const [tipoRespuestas, setTipoRespuestas] = useState('todas'); // 'todas', 'publicas', 'privadas'
+  const [tipoRespuestas, setTipoRespuestas] = useState('todas');
 
   // Cargar encuestas al montar el componente
   useEffect(() => {
@@ -87,8 +87,15 @@ function VerResultados() {
         
         // Obtener respuestas de localStorage
         const respuestasData = localStorage.getItem('respuestas');
-        const todasRespuestas = respuestasData ? JSON.parse(respuestasData) : {};
+        let todasRespuestas = {};
         
+        try {
+          todasRespuestas = respuestasData ? JSON.parse(respuestasData) : {};
+        } catch (error) {
+          console.error('Error al parsear respuestas:', error);
+          todasRespuestas = {};
+        }
+
         // Buscar encuesta seleccionada
         const encuestaActual = encuestas.find(enc => 
           enc && enc.id && enc.id.toString() === encuestaSeleccionada.toString()
@@ -158,7 +165,7 @@ function VerResultados() {
             respuestasFiltradas.forEach(respuesta => {
               const valor = respuesta?.[pregunta.id];
               if (valor !== undefined && valor !== null) {
-                if (respuesta.desdePublico) {
+                if (respuesta.desdePublico === true) {
                   if (conteo.publicas[valor] !== undefined) conteo.publicas[valor] += 1;
                 } else {
                   if (conteo.privadas[valor] !== undefined) conteo.privadas[valor] += 1;
@@ -200,7 +207,7 @@ function VerResultados() {
                 respuesta[pregunta.id] : [];
               selecciones.forEach(seleccion => {
                 if (seleccion !== undefined && seleccion !== null) {
-                  if (respuesta.desdePublico) {
+                  if (respuesta.desdePublico === true) {
                     if (conteo.publicas[seleccion] !== undefined) conteo.publicas[seleccion] += 1;
                   } else {
                     if (conteo.privadas[seleccion] !== undefined) conteo.privadas[seleccion] += 1;
@@ -235,7 +242,7 @@ function VerResultados() {
               const valor = respuesta?.[pregunta.id];
               if (typeof valor === 'number' && valor >= 1 && valor <= 5) {
                 valores.total[valor - 1] += 1;
-                if (respuesta.desdePublico) {
+                if (respuesta.desdePublico === true) {
                   valores.publicas[valor - 1] += 1;
                 } else {
                   valores.privadas[valor - 1] += 1;
