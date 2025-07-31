@@ -54,27 +54,26 @@ function ResponderEncuestaDetalle() {
       }
     }
 
-    // Obtener respuestas existentes con manejo seguro
+    // Solución definitiva para el error de JSON.parse
     let todasLasRespuestas = {};
-    try {
-      const respuestasGuardadas = localStorage.getItem('respuestas');
-      
-      // Si no hay respuestas guardadas, inicializamos un objeto vacío
-      if (!respuestasGuardadas) {
-        todasLasRespuestas = {};
-      } else {
-        // Verificamos si ya es un objeto (no debería pasar, pero por seguridad)
-        if (typeof respuestasGuardadas === 'object') {
-          todasLasRespuestas = respuestasGuardadas;
-        } else {
-          // Parseamos solo si es un string
-          todasLasRespuestas = JSON.parse(respuestasGuardadas);
-        }
-      }
-    } catch (error) {
-      console.error('Error al leer respuestas:', error);
-      // Si hay error, inicializamos un objeto vacío
+    const respuestasGuardadas = localStorage.getItem('respuestas');
+    
+    // Caso 1: No hay respuestas guardadas
+    if (!respuestasGuardadas) {
       todasLasRespuestas = {};
+    } 
+    // Caso 2: Las respuestas guardadas ya son un objeto (raro pero posible)
+    else if (typeof respuestasGuardadas === 'object') {
+      todasLasRespuestas = respuestasGuardadas;
+    }
+    // Caso 3: Las respuestas son un string JSON válido
+    else {
+      try {
+        todasLasRespuestas = JSON.parse(respuestasGuardadas);
+      } catch (error) {
+        console.error('Error al parsear respuestas:', error);
+        todasLasRespuestas = {};
+      }
     }
 
     // Crear estructura para esta encuesta si no existe
@@ -89,17 +88,17 @@ function ResponderEncuestaDetalle() {
     todasLasRespuestas[encuesta.id].respuestas.push({
       ...respuestas,
       fecha: new Date().toISOString(),
-      desdePublico: false // Marcamos como respuesta privada
+      desdePublico: false
     });
 
-    // Guardar en localStorage con manejo de errores
+    // Guardar en localStorage
     try {
       localStorage.setItem('respuestas', JSON.stringify(todasLasRespuestas));
-      alert('¡Gracias por responder la encuesta!');
+      alert('¡Respuestas guardadas correctamente!');
       navigate('/inicio');
     } catch (error) {
       console.error('Error al guardar respuestas:', error);
-      alert('Ocurrió un error al guardar tus respuestas. Por favor intenta nuevamente.');
+      alert('Error al guardar las respuestas. Por favor intenta nuevamente.');
     }
   };
 
