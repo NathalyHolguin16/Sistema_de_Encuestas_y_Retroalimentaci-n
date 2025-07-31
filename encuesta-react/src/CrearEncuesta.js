@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CrearEncuesta.css';
 
 function CrearEncuesta() {
@@ -12,9 +13,10 @@ function CrearEncuesta() {
       requerida: false 
     }
   ]);
-  
-  // Nuevo estado para el enlace generado
+
   const [enlaceGenerado, setEnlaceGenerado] = useState('');
+  const [encuestaGuardada, setEncuestaGuardada] = useState(null);
+  const navigate = useNavigate();
 
   const agregarPregunta = () => {
     setPreguntas([
@@ -68,11 +70,10 @@ function CrearEncuesta() {
     ));
   };
 
-  // Función para copiar el enlace al portapapeles
-  const copiarEnlace = () => {
+    const copiarEnlace = () => {
     navigator.clipboard.writeText(enlaceGenerado)
       .then(() => {
-        alert('Enlace copiado al portapeles');
+        alert('Enlace copiado al portapapeles');
       })
       .catch(err => {
         console.error('Error al copiar: ', err);
@@ -80,17 +81,33 @@ function CrearEncuesta() {
       });
   };
 
-  // Función para compartir la encuesta
-  const compartirEncuesta = () => {
+    const compartirEncuesta = () => {
     if (navigator.share) {
       navigator.share({
-        title: 'Participa en mi encuesta',
+        title: `Participa en mi encuesta: ${titulo}`,
         text: 'Por favor, responde mi encuesta:',
         url: enlaceGenerado,
       })
       .catch(error => console.log('Error al compartir', error));
     } else {
-      alert('La función de compartir no está disponible en este navegador. Copia el enlace manualmente.');
+      // Fallback para navegadores que no soportan la API de share
+      const textArea = document.createElement('textarea');
+      textArea.value = `Participa en mi encuesta: ${titulo}\n\n${enlaceGenerado}`;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        alert('Enlace copiado al portapeles. Puedes compartirlo donde quieras.');
+      } catch (err) {
+        alert('Error al copiar el enlace: ' + err);
+      }
+      document.body.removeChild(textArea);
+    }
+  };
+
+  const verResultados = () => {
+    if (encuestaGuardada) {
+      navigate('/resultados', { state: { encuestaSeleccionada: encuestaGuardada.titulo } });
     }
   };
 
@@ -127,32 +144,20 @@ function CrearEncuesta() {
       id: idEncuesta,
       titulo,
       preguntas,
-      fecha: new Date().toISOString()
+      fecha: new Date().toISOString(),
+      publica: true // Marcar como pública para que sea accesible sin login
     };
 
     const encuestasGuardadas = JSON.parse(localStorage.getItem('encuestas') || '[]');
     encuestasGuardadas.push(encuesta);
-    localStorage.setItem('encuestas', JSON.stringify(encuestasGuardadas));
+      localStorage.setItem('encuestas', JSON.stringify(encuestasGuardadas));
 
-    alert('Encuesta guardada correctamente ✅');
-
-    // Generar enlace único para compartir
-    const enlace = `${window.location.origin}/responder-encuesta-detalle/${idEncuesta}`;
+      // Generar enlace único para compartir
+    const enlace = `${window.location.origin}/responder/${idEncuesta}`;
     setEnlaceGenerado(enlace);
-
-    // Resetear formulario (opcional, comentado para que el usuario vea el enlace)
-    /*
-    setTitulo('');
-    setPreguntas([
-      { 
-        id: Date.now(), 
-        pregunta: '', 
-        tipo: 'opcion-multiple', 
-        opciones: ['', ''], 
-        requerida: false 
-      }
-    ]);
-    */
+    setEncuestaGuardada(encuesta);
+    
+    alert('Encuesta guardada correctamente ✅');
   };
 
   return (
@@ -168,6 +173,7 @@ function CrearEncuesta() {
             onChange={e => setTitulo(e.target.value)}
             required
             placeholder="Ej: Satisfacción del cliente"
+            className="input-pregunta"
           />
         </div>
 
@@ -302,7 +308,7 @@ function CrearEncuesta() {
       {enlaceGenerado && (
         <div className="enlace-generado">
           <h3>Enlace para compartir tu encuesta</h3>
-          <p>Comparte este enlace con los participantes:</p>
+          <p>Comparte este enlace con los participantes. No necesitan iniciar sesión para responder.</p>
           
           <div className="input-enlace">
             <input 
@@ -328,6 +334,24 @@ function CrearEncuesta() {
             >
               Compartir Encuesta
             </button>
+            <button 
+              type="button" 
+              className="boton boton-secundario"
+              onClick={verResultados}
+              style={{ marginLeft: '10px' }}
+            >
+              Ver Resultados
+            </button>
+          </div>
+          
+          <div style={{ marginTop: '20px', padding: '15px', background: '#f0f4f8', borderRadius: '8px' }}>
+            <h4>Instrucciones para compartir:</h4>
+            <ul style={{ marginLeft: '20px' }}>
+              <li>Envía el enlace por correo, WhatsApp o cualquier mensajería</li>
+              <li>Publica el enlace en redes sociales</li>
+              <li>Incrusta el enlace en tu sitio web</li>
+              <li>El enlace no expira y puede ser respondido múltiples veces</li>
+            </ul>
           </div>
         </div>
       )}
@@ -335,5 +359,4 @@ function CrearEncuesta() {
   );
 }
 
-export default CrearEncuesta;
-
+  export default CrearEncuesta;

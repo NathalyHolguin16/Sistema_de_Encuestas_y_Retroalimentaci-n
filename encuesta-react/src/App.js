@@ -9,10 +9,12 @@ import ResponderEncuesta from './ResponderEncuesta';
 import ResponderEncuestaDetalle from './ResponderEncuestaDetalle';
 import VerResultados from './VerResultados';
 import Navbar from './Navbar';
+import ResponderEncuestaPublica from './ResponderEncuestaPublica';
 
 function App() {
   const location = useLocation();
-  const showNavbar = !['/', '/registro'].includes(location.pathname);
+  const showNavbar = !['/', '/registro'].includes(location.pathname) && 
+                     !location.pathname.startsWith('/responder/');
   
   return (
     <>
@@ -23,6 +25,7 @@ function App() {
         <Route path="/inicio" element={<Inicio />} />
         <Route path="/crear" element={<CrearEncuesta />} />
         <Route path="/responder" element={<ResponderEncuesta />} />
+        <Route path="/responder/:idEncuesta" element={<ResponderEncuestaPublica />} />
         <Route path="/responder-encuesta-detalle" element={<ResponderEncuestaDetalle />} />
         <Route path="/resultados" element={<VerResultados />} />
       </Routes>
